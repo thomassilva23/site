@@ -167,11 +167,14 @@ function App() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 fade-in-target">
             <TechCard
               icon={<Code2 className="w-8 h-8" />}
-              title="Front-end"
+              title="Stacks"
               techs={[
                 "React.js",
                 "Vue.js",
                 "Angular.js",
+                "TypeScript",
+                "Wordpress",
+                "PHP",
                 "HTML",
                 "CSS",
                 "Sass",
@@ -179,14 +182,22 @@ function App() {
               ]}
             />
             <TechCard
-              icon={<Database className="w-8 h-8" />}
-              title="Back-end"
-              techs={["PHP", "MySQL", "Oracle DB"]}
-            />
-            <TechCard
               icon={<Layout className="w-8 h-8" />}
               title="Design"
-              techs={["UI/UX Design", "Responsive Design", "Web Design"]}
+              techs={[
+                "UI/UX Design",
+                "Photoshop",
+                "Illustrator",
+                "Figma",
+                "Canva",
+                "Responsive Design",
+                "Web Design",
+              ]}
+            />
+            <TechCard
+              icon={<Database className="w-8 h-8" />}
+              title="Databases"
+              techs={["MySQL", "SQL Server", "Oracle DB"]}
             />
           </div>
         </div>
