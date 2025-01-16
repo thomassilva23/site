@@ -25,10 +25,10 @@ function App() {
   const scrollTo = useScrollTo();
 
   const socialLinks = {
-    linkedin: import.meta.env.VITE_LINKEDIN_URL,
-    whatsapp: `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}`,
-    email: `mailto:${import.meta.env.VITE_EMAIL}`,
-    github: import.meta.env.VITE_GITHUB_URL,
+    linkedin: "https://www.linkedin.com/in/thomas-silva-2000/",
+    whatsapp: "https://wa.me/5551980574085",
+    email: "mailto:thomassilva23@hotmail.com",
+    github: "https://github.com/thomassilva23",
   };
 
   return (
