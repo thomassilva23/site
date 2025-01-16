@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Github,
   Linkedin,
@@ -45,10 +45,35 @@ function useScrollTo() {
   return scrollTo;
 }
 
+function useFadeInOnScroll() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    const elements = document.querySelectorAll(".fade-in-target");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+}
+
 function App() {
   const [language, setLanguage] = useState<"pt" | "en">("pt");
   const t = translations[language];
   const scrollTo = useScrollTo();
+
+  useFadeInOnScroll();
 
   const socialLinks = {
     linkedin: "https://www.linkedin.com/in/thomas-silva-2000/",
@@ -94,24 +119,24 @@ function App() {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text fade-in-target">
             Thomas Silva
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 fade-in-target">
             Desenvolvedor Full Stack & Web Designer
           </p>
           <div className="flex gap-4 justify-center">
             <a
               href="#contact"
               onClick={scrollTo("contact")}
-              className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg font-semibold transition-colors fade-in-target"
             >
               {t.contact}
             </a>
             <a
               href="#about"
               onClick={scrollTo("about")}
-              className="border border-blue-500 hover:bg-blue-500/10 px-6 py-3 rounded-lg font-semibold transition-colors"
+              className="border border-blue-500 hover:bg-blue-500/10 px-6 py-3 rounded-lg font-semibold transition-colors fade-in-target"
             >
               {t.learnMore}
             </a>
@@ -122,11 +147,11 @@ function App() {
       {/* About Section */}
       <section id="about" className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center fade-in-target">
             {t.about}
           </h2>
-          <div className="bg-gray-800/50 p-8 rounded-2xl">
-            <p className="text-lg text-gray-300 leading-relaxed">
+          <div className="bg-gray-800/50 p-8 rounded-2xl fade-in-target">
+            <p className="text-lg text-gray-300 leading-relaxed fade-in-target">
               {t.aboutText}
             </p>
           </div>
@@ -136,10 +161,10 @@ function App() {
       {/* Technologies Section */}
       <section id="technologies" className="py-20 px-4 bg-gray-800/30">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center fade-in-target">
             {t.technologies}
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 fade-in-target">
             <TechCard
               icon={<Code2 className="w-8 h-8" />}
               title="Front-end"
@@ -170,38 +195,40 @@ function App() {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">{t.letsChat}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 fade-in-target">
+            {t.letsChat}
+          </h2>
           <div className="flex flex-wrap gap-6 justify-center">
             <ContactButton
               icon={<Linkedin className="w-6 h-6" />}
               text="LinkedIn"
               href={socialLinks.linkedin}
-              className="bg-[#0077B5]"
+              className="bg-[#0077B5] fade-in-target"
             />
             <ContactButton
               icon={<MessageCircle className="w-6 h-6" />}
               text="WhatsApp"
               href={socialLinks.whatsapp}
-              className="bg-[#25D366]"
+              className="bg-[#25D366] fade-in-target"
             />
             <ContactButton
               icon={<Mail className="w-6 h-6" />}
               text="E-mail"
               href={socialLinks.email}
-              className="bg-red-500"
+              className="bg-red-500 fade-in-target"
             />
             <ContactButton
               icon={<Github className="w-6 h-6" />}
               text="GitHub"
               href={socialLinks.github}
-              className="bg-gray-700"
+              className="bg-gray-700 fade-in-target"
             />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-6 text-center text-gray-400 border-t border-gray-800">
+      <footer className="py-6 text-center text-gray-400 border-t border-gray-800 fade-in-target">
         <p>© 2024 Thomas Silva. {t.rights}</p>
       </footer>
     </div>
@@ -217,13 +244,13 @@ interface TechCardProps {
 function TechCard({ icon, title, techs }: TechCardProps) {
   return (
     <div className="bg-gray-800/50 p-6 rounded-xl hover:bg-gray-700/50 transition-colors">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-4 fade-in-target">
         {icon}
-        <h3 className="text-xl font-semibold">{title}</h3>
+        <h3 className="text-xl font-semibold fade-in-target">{title}</h3>
       </div>
       <ul className="space-y-2">
         {techs.map((tech) => (
-          <li key={tech} className="text-gray-300">
+          <li key={tech} className="text-gray-300 fade-in-target">
             {tech}
           </li>
         ))}
