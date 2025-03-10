@@ -76,7 +76,7 @@ function App() {
   useFadeInOnScroll();
 
   const socialLinks = {
-    linkedin: "https://www.linkedin.com/in/thomas-silva-2000/",
+    linkedin: "https://www.linkedin.com/in/thomas-silva/",
     whatsapp: "https://wa.me/5551980574085",
     email: "mailto:thomassilva23@hotmail.com",
     github: "https://github.com/thomassilva23",
@@ -240,7 +240,7 @@ function App() {
 
       {/* Footer */}
       <footer className="py-6 text-center text-gray-400 border-t border-gray-800 fade-in-target">
-        <p>© 2024 Thomas Silva. {t.rights}</p>
+        <p>© 2025 Thomas Silva. {t.rights}</p>
       </footer>
     </div>
   );
